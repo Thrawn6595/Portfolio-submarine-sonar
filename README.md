@@ -1,3 +1,5 @@
+![Sonar Mine Detection](./notebooks/images/00_Sonar_Mine_detection_Cover.png)
+
 # Sonar Mine vs Rock Classification
 
 End-to-end ML project demonstrating production deployment with focus on **maximizing mine detection recall**.
