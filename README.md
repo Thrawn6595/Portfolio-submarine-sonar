@@ -1,3 +1,5 @@
+![Sonar Mine Detection](./notebooks/images/00_Sonar_Mine_detection_Cover.png)
+
 # Sonar Mine vs Rock Classification
 
 The basic premise is that Naval vessels navigate waters where underwater mines pose existential threats, active sonar returns provide the only advance warning, but distinguishing mines from naturally occurring rocks requires real-time classification under uncertainty.
