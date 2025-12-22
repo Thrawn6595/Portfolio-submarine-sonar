@@ -1,25 +1,28 @@
-"""
-Configuration for Sonar Mine vs Rock Classification
-"""
+from pathlib import Path
 
-# Reproducibility
-DEFAULT_SEED = 1206
-
-# Data Paths
+# Paths - use relative so it works from any directory
 DATA_RAW_PATH = "data/raw/sonar.csv"
-DATA_PROCESSED_PATH = "data/processed/"
+DATA_INTERIM_PATH = "data/interim"
+DATA_PROCESSED_PATH = "data/processed"
 
-# Data Loading
-COLUMN_PREFIX = "feature"
-TARGET_COLUMN_INDEX = -1
+# Model config
+DEFAULT_SEED = 1206
+TEST_SIZE = 0.2
+DEFAULT_CV_FOLDS = 5
+
+# Outcome mapping
 OUTCOME_MAPPING = {"R": 0, "M": 1}
 
-# Train/Test Split
-TEST_SIZE = 0.2
-CV_FOLDS = 5
+# Scoring options
+SCORING_OPTIONS = {
+    "f1": "f1",
+    "f2": "f2", 
+    "recall": "recall",
+    "precision": "precision"
+}
 
-# Display Settings
-FIGURE_SIZE = (12, 6)
-PLOT_STYLE = "whitegrid"
+# Display settings
 MAX_ROWS_DISPLAY = 100
 MAX_COLS_DISPLAY = None
+FIGURE_SIZE = (12, 6)
+PLOT_STYLE = "whitegrid"
