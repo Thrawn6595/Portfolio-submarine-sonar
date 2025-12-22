@@ -1,52 +1,50 @@
-"""
-Data loading utilities - reusable across projects
-"""
-
 import pandas as pd
 from pathlib import Path
+from typing import Tuple, Dict, Optional
+import os
 
-def load_dataset(path, outcome_col_index=-1, outcome_mapping=None, feature_prefix="feature"):
+def load_dataset(
+    path: str,
+    outcome_mapping: Optional[Dict] = None,
+    outcome_col_index: int = -1,
+    feature_prefix: str = "feature_"
+) -> Tuple[pd.DataFrame, Dict]:
     """
-    Generic dataset loader - works on any CSV
-    
-    Args:
-        path: Path to CSV file
-        outcome_col_index: Index of target column (-1 for last)
-        outcome_mapping: Dict to map target labels to integers
-        feature_prefix: Prefix for feature column names
-        
-    Returns:
-        df: DataFrame with standardized column names
-        schema: Dict with dataset metadata
+    Load dataset and return DataFrame with schema info.
     """
-    path = Path(path)
-    
-    if not path.exists():
-        raise FileNotFoundError(f"Dataset not found: {path}")
-    
-    df = pd.read_csv(path, header=None)
+    # Try path as-is first
+    if os.path.exists(path):
+        df = pd.read_csv(path, header=None)
+    else:
+        # If not found, try relative to current working directory
+        cwd_path = Path.cwd() / path
+        if cwd_path.exists():
+            df = pd.read_csv(cwd_path, header=None)
+        else:
+            # Try going up one level (for notebooks directory)
+            parent_path = Path.cwd().parent / path
+            if parent_path.exists():
+                df = pd.read_csv(parent_path, header=None)
+            else:
+                raise FileNotFoundError(f"Dataset not found at: {path}, {cwd_path}, or {parent_path}")
     
     n_cols = df.shape[1]
-    if outcome_col_index < 0:
-        outcome_col_index = n_cols + outcome_col_index
+    n_features = n_cols - 1
     
-    new_cols = [f"{feature_prefix}_{i+1}" for i in range(n_cols)]
-    new_cols[outcome_col_index] = "outcome"
-    df.columns = new_cols
+    feature_names = [f"{feature_prefix}{i}" for i in range(n_features)]
+    outcome_col_name = "outcome"
     
-    if outcome_mapping is not None:
-        unmapped = set(df['outcome'].unique()) - set(outcome_mapping.keys())
-        if unmapped:
-            raise ValueError(f"Unmapped outcome values: {unmapped}")
-        df['outcome'] = df['outcome'].map(outcome_mapping).astype(int)
+    df.columns = feature_names + [outcome_col_name]
     
-    feature_cols = [c for c in df.columns if c != 'outcome']
+    if outcome_mapping:
+        df[outcome_col_name] = df[outcome_col_name].map(outcome_mapping)
+    
     schema = {
-        'n_samples': len(df),
-        'n_features': len(feature_cols),
-        'feature_names': feature_cols,
-        'target_name': 'outcome',
-        'target_values': sorted(df['outcome'].unique()),
+        "n_samples": len(df),
+        "n_features": n_features,
+        "feature_names": feature_names,
+        "target_name": outcome_col_name,
+        "target_values": df[outcome_col_name].unique().tolist()
     }
     
     return df, schema
