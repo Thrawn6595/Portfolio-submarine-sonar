@@ -2,14 +2,24 @@
 
 # Sonar Mine vs Rock Classification
 
+Context:
 The basic premise is that Naval vessels navigate waters where underwater mines pose existential threats, active sonar returns provide the only advance warning, but distinguishing mines from naturally occurring rocks requires real-time classification under uncertainty.
 
-This Project explores a sample of the 208 sonar record set across 60 signal features, to understand whether ML classification is feasible and can add value, and what data processing and modelling approaches will need to be considered to deliver on the ML and Business objectives.
+This Project explores a sample of the 208 sonar record set across 60 signal features, to understand whether ML classification is feasible and can add value to building a mine detection system, and what data processing and modelling approaches will need to be considered to deliver on the ML and Business objectives of keeping vessels and crew safe.
+
+Most attempts at this ignore that this is a and blindly use accuracy as the key ML and Business objective. We will take a different route and build an end to end Ml solution that identifies the Business objective and the Machine learning implication for the Design, development and deployment lifecycle of the system.
+
+
 
 ## Key Objectives
 
 1. **Maximize Recall:** Detect 100% of mines, without precision collapsing below 70%
 2. **Production Ready:** End-to-end ML project,full pipeline from research to API implementation to Docker deployment
+
+
+What good looks like: 
+
+
 
 ## Quick Start
 
