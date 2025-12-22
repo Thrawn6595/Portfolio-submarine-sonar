@@ -2,66 +2,48 @@
 
 # Sonar Mine vs Rock Classification
 
-Context:
-The basic premise is that Naval vessels navigate waters where underwater mines pose existential threats, active sonar returns provide the only advance warning, but distinguishing mines from naturally occurring rocks requires real-time classification under uncertainty.
+## Context
 
-This Project explores a sample of the 208 sonar record set across 60 signal features, to understand whether ML classification is feasible and can add value to building a mine detection system, and what data processing and modelling approaches will need to be considered to deliver on the ML and Business objectives of keeping vessels and crew safe.
+Naval vessels navigate waters where underwater mines pose existential threats. Active sonar returns provide the only advance warning, but distinguishing mines from naturally occurring rocks requires real-time classification under uncertainty.
 
-Most attempts at this ignore that this is a and blindly use accuracy as the key ML and Business objective. We will take a different route and build an end to end Ml solution that identifies the Business objective and the Machine learning implication for the Design, development and deployment lifecycle of the system.
+This project explores the UCI Sonar dataset (208 records, 60 frequency-band features) to determine whether ML classification can add value to mine detection systems and what data processing and modeling approaches deliver on the business objective: keeping vessels and crew safe.
 
+**The Difference:** Most implementations optimise for accuracy. We take a different route, recognising that missing a mine (false negative) means catastrophic loss, while false alarms (false positives) merely waste investigation time. This asymmetric cost structure fundamentally shapes our design, development, and deployment decisions.
 
+---
 
 ## Key Objectives
 
-1. **Maximize Recall:** Detect 100% of mines, without precision collapsing below 70%
-2. **Production Ready:** End-to-end ML project,full pipeline from research to API implementation to Docker deployment
+### Business Objective
+Enable safe submarine operations by reliably detecting underwater mines before they pose a threat.
 
+### ML Performance Targets
 
-What good looks like: 
+- **Recall ≈ 100%** — Detect every mine (operational target: ≥98% on test set)
+- **Precision ≥ 70%** — Maintain alert credibility (≤30% false positive rate)
 
+### Production Objective
+End-to-end ML pipeline from research to containerised API deployment, 
 
+**What Good Looks Like:**
+- Zero missed mines on held-out test set (100% recall)
+- Precision high enough that operators trust the alerts (≥70%)
+- Champion model deployed as production-ready API
 
-## Quick Start
+## License
 
-```bash
-make install-all
-make train-model
-make run-api
-```
+MIT License - See LICENSE file for details.
 
-Visit <http://localhost:8000/docs>
+---
 
-## Results
+## Acknowledgments
 
-**Champion Model:** SVM (RBF, C=0.5)
+**Dataset:** UCI Machine Learning Repository - Connectionist Bench (Sonar, Mines vs. Rocks)  
+**Citation:** Gorman, R. P., and Sejnowski, T. J. (1988). "Analysis of Hidden Units in a Layered Network Trained to Classify Sonar Targets" in Neural Networks, Vol. 1, pp. 75-89.
 
-| Metric | Value | Note |
-|--------|-------|------|
-| Test Recall | 95.45% | Catches 21/22 mines |
-| Test Precision | 77.78% | ~22% false alarms |
-| Test F2 | 91.30% | Emphasizes recall |
-| ROC AUC | 91.82% | Strong discrimination |
+---
 
-**Threshold Optimization:** Can achieve 100% recall by lowering threshold (see `optimize_threshold.py`)
+## Contact
 
-## Why Recall Matters
-
-For mine detection:
-
-- **False Negative (missed mine)** = Catastrophic (ship/submarine loss)
-- **False Positive (false alarm)** = Acceptable cost (investigation)
-
-We optimize for **maximum recall** while maintaining reasonable precision.
-
-## Architecture
-
-``` {markdown}
-Portfolio-submarine-sonar/
-├── notebooks/              # Research & EDA
-├── packages/
-│   ├── sonar_model/        # Core ML (extensible for neural nets)
-│   └── sonar_api/          # FastAPI wrapper
-├── ml_toolkit/             # Reusable utilities
-├── docker/                 # Containerization
-└── Makefile                # Automation
-```
+**Author:** Adama Abanteriba R  
+**Portfolio:** [GitHub Repository](https://github.com/Thrawn6595/Portfolio-submarine-sonar)
