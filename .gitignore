@@ -13,3 +13,6 @@ artifacts/reports/*
 .vscode/
 .DS_Store
 .env
+ml_toolkit/ml_toolkit.egg-info/
+**/*.nbconvert.ipynb
+**/*Draft.ipynb
