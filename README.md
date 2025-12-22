@@ -1,49 +1,56 @@
 ![Sonar Mine Detection](./notebooks/images/00_Sonar_Mine_detection_Cover.png)
 
-# Sonar Mine vs Rock Classification
+## Sonar Mine vs Rock Classification
 
-## Context
+### Context
 
-Naval vessels navigate waters where underwater mines pose existential threats. Active sonar returns provide the only advance warning, but distinguishing mines from naturally occurring rocks requires real-time classification under uncertainty.
+Naval vessels operate in environments where underwater mines may be concealed among natural rock formations on the sea floor. Active sonar provides the only advance warning: emitted sound waves and their returning echoes must be interpreted to distinguish mines from benign objects.
 
-This project explores the UCI Sonar dataset (208 records, 60 frequency-band features) to determine whether ML classification can add value to mine detection systems and what data processing and modeling approaches deliver on the business objective: keeping vessels and crew safe.
+These decisions are made in real time and under uncertainty, where a single missed mine can result in the loss of a vessel, its crew, and the mission.
 
-**The Difference:** Most implementations optimise for accuracy. We take a different route, recognising that missing a mine (false negative) means catastrophic loss, while false alarms (false positives) merely waste investigation time. This asymmetric cost structure fundamentally shapes our design, development, and deployment decisions.
-
----
-
-## Key Objectives
+This project uses the **UCI Sonar dataset** to assess whether machine learning classification can support this task, and which data processing and modelling choices are best suited.
 
 ### Business Objective
+
 Enable safe submarine operations by reliably detecting underwater mines before they pose a threat.
 
-### ML Performance Targets
+### Translating the Business Objective into ML Performance
 
-- **Recall ≈ 100%** — Detect every mine (operational target: ≥98% on test set)
-- **Precision ≥ 70%** — Maintain alert credibility (≤30% false positive rate)
+In this domain, not all errors are equal. Missing a mine represents catastrophic failure, while false alarms are operationally tolerable. As a result, model performance is evaluated under **asymmetric error costs**, where recall is prioritised over raw accuracy.
 
-### Production Objective
-End-to-end ML pipeline from research to containerised API deployment, 
+- **Recall ≈ 100%** — Every mine must be detected  
+  *(Operational target: ≥98% on the held-out test set, tuned toward 100%)*
 
-**What Good Looks Like:**
-- Zero missed mines on held-out test set (100% recall)
-- Precision high enough that operators trust the alerts (≥70%)
-- Champion model deployed as production-ready API
+- **Precision ≥ 70%** — False alarms must remain within operator capacity  
+  *(≤30% false positive rate to maintain alert credibility)*
+
+### What Good Looks Like
+
+- Zero missed mines on the held-out test set  
+- Precision high enough that operators trust the alerts  
+- A champion model suitable for deployment in a real-time detection system
+
+### Production Perspective
+
+Beyond model performance, this project will demonstrate an end-to-end ML workflow. The final model is exposed as a containerised API designed to accept sonar signal arrays (60 frequency bands) and return classification probabilities with confidence scores, enabling integration into operational detection pipelines.
+
+---
 
 ## License
 
-MIT License - See LICENSE file for details.
+MIT License — see the `LICENSE` file for details.
 
 ---
 
-## Acknowledgments
+## Acknowledgements
 
-**Dataset:** UCI Machine Learning Repository - Connectionist Bench (Sonar, Mines vs. Rocks)  
-**Citation:** Gorman, R. P., and Sejnowski, T. J. (1988). "Analysis of Hidden Units in a Layered Network Trained to Classify Sonar Targets" in Neural Networks, Vol. 1, pp. 75-89.
+**Dataset:** UCI Machine Learning Repository — Connectionist Bench (Sonar, Mines vs. Rocks)  
+**Citation:**  
+Gorman, R. P., & Sejnowski, T. J. (1988). *Analysis of Hidden Units in a Layered Network Trained to Classify Sonar Targets*. Neural Networks, 1, 75–89.
 
 ---
 
 ## Contact
 
 **Author:** Adama Abanteriba R  
-**Portfolio:** [GitHub Repository](https://github.com/Thrawn6595/Portfolio-submarine-sonar)
+**Portfolio:** https://github.com/Thrawn6595/Portfolio-submarine-sonar
