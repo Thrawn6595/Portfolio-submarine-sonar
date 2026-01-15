@@ -5,11 +5,11 @@
 
 ### Motivation
 
-I'm drawn to problems where technical decisions and human factors intersect, particularly where standard approaches like optimising for accuracy miss the underlying business constraints. Having seen projects struggle from poor problem framing, I wanted to work through the complete ML development cycle on a dataset that forces careful thinking from the start.
+I'm drawn to problems where technical decisions and human factors intersect, particularly where standard approaches like optimising for accuracy miss the underlying business constraints. Having seen projects struggle from poor problem framing, I wanted to work through a complete ML development cycle on a dataset that forces careful thinking from the start. A SEEK motto that has stayed with me is **"Do the right amount of thinking upfront"**.
 
-The sonar mine detection problem is ideal for this. It deals with asymmetric cost where missed mines are catastrophic but false alarms are manageable. It requires designing for operator workload and thinking through deployment considerations before building models. 
+The sonar mine detection problem is ideal for this. It deals with asymmetric cost where missed mines are catastrophic but false alarms are manageable, making it a natural fit for exploring operator workload design and deployment considerations early in the process.
 
-This project follows the ML development cycle closely from business problem framing to translation into clear ML objectives and deployment planning in the early design stage.
+This project follows the ML development cycle closely from business problem framing to translation into clear ML objectives and deployment planning in the early design stages, to clearly capture what good looks like.
 
 ### Situation
 
