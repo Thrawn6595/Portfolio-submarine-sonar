@@ -30,7 +30,8 @@ Beyond model performance, this project will demonstrate an end-to-end ML workflo
 
 Dataset from the UCI Machine Learning Repository, originally published by Gorman and Sejnowski (1988).
 
-Adama Abanteriba | [Portfolio](https://github.com/Thrawn6595/Portfolio-submarine-sonar)
+### Author
+Adama Abanteriba Richards | [Portfolio](https://github.com/Thrawn6595/Portfolio-submarine-sonar)
 
 ---
 
